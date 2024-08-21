@@ -1,24 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+import LoginRegister from './Components/LoginRegister/LoginRegister';
+import NavbarPart from './Components/NavbarPart/NavbarPart';
+import WelcomePage from './Components/WelcomePage/WelcomePage';
 
 function App() {
+  // Başlangıçta varsayılan olarak 'welcomePage' görünecek
+  const [currentPage, setCurrentPage] = useState<'loginRegister' | 'welcomePage'>('welcomePage');
+
+  const handleButtonClick = () => {
+    setCurrentPage('loginRegister'); // LoginRegister sayfasını göster
+  };
+
+  const handlePClick = () => {
+    setCurrentPage('welcomePage'); // WelcomePage sayfasını göster
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <NavbarPart onButtonClick={handleButtonClick} onPClick={handlePClick} />
+      {currentPage === 'loginRegister' && <LoginRegister />}
+      {currentPage === 'welcomePage' && <WelcomePage />}
     </div>
   );
 }
